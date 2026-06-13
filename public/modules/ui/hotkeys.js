@@ -25,7 +25,7 @@ function handleKeyup(event) {
 
   if (code === "F1") showInfo();
   else if (code === "F2") regeneratePrompt();
-  else if (code === "F6") saveMap("storage");
+  else if (code === "F6") saveMap("machine");
   else if (code === "F9") quickLoad();
   else if (code === "Tab") toggleOptions(event);
   else if (code === "Escape") closeAllDialogs();
@@ -33,7 +33,6 @@ function handleKeyup(event) {
   else if (code === "KeyO" && ensureEl("canvas3d")) toggle3dOptions();
   else if (ctrl && code === "KeyQ") toggleSaveReminder();
   else if (ctrl && code === "KeyS") saveMap("machine");
-  else if (ctrl && code === "KeyC") saveMap("dropbox");
   else if (ctrl && code === "KeyZ" && undo?.offsetParent) undo.click();
   else if (ctrl && code === "KeyY" && redo?.offsetParent) redo.click();
   else if ((shift || altShift) && code === "KeyH") editHeightmap();
