@@ -8,4 +8,7 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
   openFile: () =>
     ipcRenderer.invoke("dialog:open-file"),
+
+  onShowHotkeys: (callback) =>
+    ipcRenderer.on("show-hotkeys", callback),
 });

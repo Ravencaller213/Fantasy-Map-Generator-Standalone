@@ -10,7 +10,7 @@ async function saveMap(method) {
     const filename = getFileName() + ".map";
 
     if (method === "storage") await saveToStorage(mapData, true);
-    if (method === "machine") saveToMachine(mapData, filename);
+    if (method === "machine") await saveToMachine(mapData, filename);
     if (method === "dropbox") await saveToDropbox(mapData, filename);
   } catch (error) {
     ERROR && console.error(error);
@@ -170,7 +170,14 @@ async function saveToStorage(mapData, showTip = false) {
 }
 
 // download map file
-function saveToMachine(mapData, filename) {
+async function saveToMachine(mapData, filename) {
+  if (window.electronAPI) {
+    const data = new TextEncoder().encode(mapData);
+    const result = await window.electronAPI.saveFile(data.buffer, filename);
+    if (result.ok) tip(`Map saved to ${result.filePath}`, true, "success", 8000);
+    return;
+  }
+
   const blob = new Blob([mapData], {type: "text/plain"});
   const URL = window.URL.createObjectURL(blob);
 

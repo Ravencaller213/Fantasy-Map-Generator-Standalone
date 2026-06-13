@@ -723,9 +723,9 @@ async function openTemplateSelectionDialog() {
 ensureEl("sticked").addEventListener("click", function (event) {
   const id = event.target.id;
   if (id === "newMapButton") regeneratePrompt();
-  else if (id === "saveButton") showSavePane();
+  else if (id === "saveButton") saveMap("machine");
   else if (id === "exportButton") showExportPane();
-  else if (id === "loadButton") showLoadPane();
+  else if (id === "loadButton") mapToLoad.click();
   else if (id === "zoomReset") resetZoom(1000);
 });
 

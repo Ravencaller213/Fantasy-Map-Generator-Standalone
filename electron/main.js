@@ -1,4 +1,4 @@
-const {app, BrowserWindow, shell, dialog, ipcMain} = require("electron");
+const {app, BrowserWindow, shell, dialog, ipcMain, Menu} = require("electron");
 const path = require("path");
 const fs = require("fs");
 
@@ -73,7 +73,26 @@ ipcMain.handle("dialog:open-file", async () => {
   return {ok: true, filePath: filePaths[0], data: data.buffer};
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+
+  const menu = Menu.buildFromTemplate([
+    {
+      label: "Help",
+      submenu: [
+        {
+          label: "Hotkeys",
+          accelerator: "F1",
+          click() {
+            const win = BrowserWindow.getFocusedWindow();
+            if (win) win.webContents.send("show-hotkeys");
+          }
+        }
+      ]
+    }
+  ]);
+  Menu.setApplicationMenu(menu);
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();

@@ -6258,16 +6258,13 @@
           >
             machine
           </button>
-          <button onclick="saveMap('dropbox')" data-tip="Save map file to your Dropbox" data-shortcut="Ctrl + C">
-            dropbox
-          </button>
           <button onclick="saveMap('storage')" data-tip="Save the project to browser storage only" data-shortcut="F6">
             browser
           </button>
         </div>
         <p>
           Maps are saved in <i>.map</i> format, that can be loaded back via the <i>Load</i> in menu. There is no way to
-          restore the progress if file is lost. Please keep old save files on your machine or cloud storage as backups.
+          restore the progress if file is lost. Please keep old save files on your machine as backups.
         </p>
       </div>
 
@@ -6288,36 +6285,6 @@
 
         <p>Click on <i>storage</i> to open the last saved map.</p>
 
-        <div id="loadFromDropbox">
-          <p style="margin-bottom: 0.3em">
-            Or load from your Dropbox account
-            <button
-              id="dropboxConnectButton"
-              onclick="connectToDropbox()"
-              data-tip="Connect your Dropbox account to be able to load maps from it"
-            >
-              Connect
-            </button>
-          </p>
-
-          <select id="loadFromDropboxSelect" style="width: 22em"></select>
-          <div id="loadFromDropboxButtons" style="margin-bottom: 0.6em">
-            <button onclick="loadFromDropbox()" data-tip="Load map file (.map or .gz) from your Dropbox">Load</button>
-            <button
-              onclick="createSharableDropboxLink()"
-              data-tip="Select file and create a link to share with your friends"
-            >
-              Share
-            </button>
-          </div>
-
-          <div style="margin-top: 0.3em">
-            <div id="sharableLinkContainer" style="display: none">
-              <a id="sharableLink" target="_blank"></a>
-              <i data-tip="Copy link to the clipboard" onclick="copyLinkToClickboard()" class="icon-clone pointer"></i>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div id="exportToPngTilesScreen" style="display: none" class="dialog">
@@ -8628,8 +8595,8 @@
     <script defer src="libs/jquery.ui.touch-punch.min.js"></script>
     <script defer src="modules/io/save.js?v=1.120.5"></script>
     <script defer src="modules/io/load.js?v=1.120.5"></script>
-    <script defer src="modules/io/cloud.js?v=1.114.0"></script>
     <script defer src="modules/io/export.js?v=1.120.5"></script>
+    <script defer src="modules/io/electron-io.js"></script>
     <div id="tourPromptButton" style="display: none" data-tip="Take an interactive tour of the map generator">
       <button type="button" aria-label="Launch UI Tour">
         <svg preserveAspectRatio="xMidYMid" viewBox="0 0 58 52" height="30px" width="30px">
