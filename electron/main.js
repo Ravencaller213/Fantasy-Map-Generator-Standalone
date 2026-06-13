@@ -76,20 +76,31 @@ ipcMain.handle("dialog:open-file", async () => {
 app.whenReady().then(() => {
   createWindow();
 
+  const send = (channel) => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (win) win.webContents.send(channel);
+  };
+
   const menu = Menu.buildFromTemplate([
+    {
+      label: "File",
+      submenu: [
+        {label: "New Map", accelerator: "F2", click() { send("menu:new-map"); }},
+        {type: "separator"},
+        {label: "Save", accelerator: "CmdOrCtrl+S", click() { send("menu:save"); }},
+        {label: "Load...", click() { send("menu:load"); }},
+        {label: "Export...", click() { send("menu:export"); }},
+        {type: "separator"},
+        {label: "Exit", role: "quit"},
+      ],
+    },
     {
       label: "Help",
       submenu: [
-        {
-          label: "Hotkeys",
-          accelerator: "F1",
-          click() {
-            const win = BrowserWindow.getFocusedWindow();
-            if (win) win.webContents.send("show-hotkeys");
-          }
-        }
-      ]
-    }
+        {label: "Hotkeys", accelerator: "F1", click() { send("show-hotkeys"); }},
+        {label: "About", click() { send("show-about"); }},
+      ],
+    },
   ]);
   Menu.setApplicationMenu(menu);
 });

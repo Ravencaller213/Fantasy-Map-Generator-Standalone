@@ -1,0 +1,146 @@
+/* ============================================================
+   Electron desktop UI overrides
+   All rules scoped to html[data-electron] so they are inert
+   in normal browser builds.
+   ============================================================ */
+
+/* ---- hide the old slide-out trigger and panel collapse button ---- */
+html[data-electron] #collapsible,
+html[data-electron] div.tab > button#optionsHide {
+  display: none !important;
+}
+
+/* ---- #options becomes a transparent full-width shell ---- */
+html[data-electron] #options {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  z-index: 1000;
+  pointer-events: none; /* let map receive clicks through the shell */
+}
+
+/* re-enable pointer events on the actual interactive children */
+html[data-electron] #options .tab,
+html[data-electron] #options .tabcontent,
+html[data-electron] #options #sticked {
+  pointer-events: auto;
+}
+
+/* ---- tab bar across the top ---- */
+html[data-electron] .tab {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 36px;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: stretch;
+  background: var(--bg-light, #fff5da);
+  border-bottom: 2px solid #5e4fa2 !important;
+  z-index: 1001;
+  box-sizing: border-box;
+  padding: 0;
+  gap: 0;
+}
+
+html[data-electron] .tab > button {
+  height: 36px;
+  width: auto !important;
+  padding: 0 16px;
+  flex: none;
+  white-space: nowrap;
+  border-radius: 0 !important;
+  border: none !important;
+  border-right: 1px solid #c0b0d0 !important;
+}
+
+html[data-electron] .tab > button.active {
+  background-color: var(--header, #5e4fa2);
+  color: white;
+}
+
+/* ---- sticked bar floats to the right of the tab bar ---- */
+html[data-electron] #sticked {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: auto !important;
+  height: 36px;
+  display: flex !important;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  background: var(--bg-light, #fff5da);
+  border-bottom: 2px solid #5e4fa2;
+  border-left: 1px solid #c0b0d0;
+  z-index: 1002;
+}
+
+html[data-electron] #sticked button {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 0 !important;
+  border: none !important;
+  border-left: 1px solid #c0b0d0 !important;
+  background: transparent;
+  font-weight: bold;
+}
+
+/* hide save/load/export from the sticked bar — they live in the File menu now */
+html[data-electron] #sticked #saveButton,
+html[data-electron] #sticked #loadButton,
+html[data-electron] #sticked #exportButton {
+  display: none !important;
+}
+
+/* ---- side panel content panes ---- */
+html[data-electron] .tabcontent {
+  position: fixed !important;
+  top: 36px !important;
+  max-height: calc(100vh - 36px) !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 270px;
+  background: var(--bg-light, #fff5da) !important;
+  border: 1px solid #5e4fa2;
+  border-top: none;
+  z-index: 999;
+  opacity: 1 !important;
+  padding: 0 10px 8px 10px !important;
+  box-sizing: border-box;
+}
+
+html[data-electron] .tabcontent.panel-left {
+  left: 0 !important;
+  right: auto !important;
+  border-left: none;
+  border-bottom-right-radius: 4px;
+}
+
+html[data-electron] .tabcontent.panel-right {
+  right: 0 !important;
+  left: auto !important;
+  border-right: none;
+  border-bottom-left-radius: 4px;
+}
+
+/* scrollbar styling for the side panels */
+html[data-electron] .tabcontent::-webkit-scrollbar {
+  width: 5px;
+}
+html[data-electron] .tabcontent::-webkit-scrollbar-thumb {
+  background: #9c8fb0;
+  border-radius: 3px;
+}
